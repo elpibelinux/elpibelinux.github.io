@@ -33,13 +33,49 @@ rclone config
 
 ![Instalación de rclone 3]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-15.jpg)
 
-Ingresamos "n" indicando que vamos a agregar una nueva conexión remota, y luego aparecerá el listado de servicios a los que nos podemos conectar, en este caso, vamos a conectarnos a OneDrive mediante una cuenta de Office365, que en este caso es el 23, pero puede variar según la versión o distribución que estemos usando
+Ingresamos "n" indicando que vamos a agregar una nueva conexión remota, indicamos un nombre para esta conexión y luego aparecerá el listado de servicios a los que nos podemos conectar.
+
+### 2.1) Microsoft OneDrive Office3655
+
+En este caso, vamos a conectarnos a OneDrive mediante una cuenta de Office365, que en este caso es el 23, pero puede variar según la versión o distribución que estemos usando
 
 ![Instalación de rclone 4]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-16.jpg)
 
 A partir de ahora la configuración puede variar según el servicio, pero para el caso de OneDrive, debemos hacer lo siguiente:
 
-Cuando nos solicite "client_id" y "client_secret"
+Cuando nos solicite "client_id" y "client_secret" no ingresamos nada y le damos Enter, lo mismo cuando nos solicite "Edit advanced config?" (por defecto no) y "Use auto config?" (por defecto si) ya que estamos configurando una cuenta simple. A continuación se abrirá un navegador que nos solicitará nuestras credenciales de Office365.
+
+![Instalación de rclone 5]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-17.jpg)
+
+Al finalizar, nos consultará que tipo de cuenta vamos a configurar, en nuestro caso marcamos la "1" (OneDrive Personal or Business).
+
+![Instalación de rclone 6]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-18.jpg)
+
+Luego nos solicitará el disco de OneDrive, que normalmente será "0"; chequeamos la información y ponemos "y", a continuación, salimos con "q".
+
+Después abrimos la configuración de startup (inicio) y añadimos la siguiente línea para que monte la carpeta sincronizada en el inicio de nuestra pc
+
+``` bash
+sh - c "rclone --vfs-cache-mode writes mount [nombre]: [dirección]"
+```
+
+Donde "nombre" es el nombre que le asignamos a la conexión cuando iniciamos el "rclone config" y "dirección" es la carpeta donde se van a sincronizar los archivos. Por ejemplo podría quedar algo así:
+
+``` bash
+sh - c "rclone --vfs-cache-mode writes mount MiNube: /home/elpibelinux/OneDrive"
+```
+
+![Instalación de rclone 7]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-21.jpg)
+
+![Instalación de rclone 8]({{ site.baseurl }}/images/2020-09-07-instalar-rclone-en-manjaro/photo_2020-09-07_19-06-24.jpg)
+
+## 3) Finalización
+
+¡Y Listo! Ahora solo toca reiniciar la PC y ya estaremos sincronizando nustro servicio en la nube con una carpeta local.
 
 
-The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
+## Agradecimientos
+
+A [Martín Guzmán](https://twitter.com/Martinn01) por las imágenes e instrucciones para este tutorial.
+
+[Sitio oficial rclone](https://rclone.org/)
